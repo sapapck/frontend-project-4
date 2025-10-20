@@ -6,3 +6,6 @@ install:
 
 start:
 	npm  start
+
+frontend:
+	npm run preview
