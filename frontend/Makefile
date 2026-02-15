@@ -7,5 +7,5 @@ install:
 start:
 	npm  start
 
-frontend:
-	npm run preview
+dev:
+	npm run dev
