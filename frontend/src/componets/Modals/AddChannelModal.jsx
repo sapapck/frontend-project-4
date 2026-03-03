@@ -6,26 +6,26 @@ import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
 import { useAddChannelMutation, useGetChanelsQuery } from '../../slices/api/chatApi';
 import { channelSchema } from '../../schemas/getValidationSchema';
-import {setCurrentChannelId} from '../../slices/uiSlice';
+import { setCurrentChannelId } from '../../slices/uiSlice';
 
 const AddChannelModal = ({ onHide }) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { data: channels = [] } = useGetChanelsQuery();
   const [addChannel, { isLoading }] = useAddChannelMutation();
-  
+
   const existingNames = channels.map((c) => c.name);
 
   const formik = useFormik({
     initialValues: { name: '' },
     validationSchema: channelSchema(existingNames, t),
-    onSubmit: async ({name}) => {
+    onSubmit: async ({ name }) => {
       try {
         const cleanName = filter.clean(name);
         const response = await addChannel({ name: cleanName }).unwrap();
-        dispatch(setCurrentChannelId(response.id)); 
+        dispatch(setCurrentChannelId(response.id));
         toast.success(t('channels.created'));
-        onHide(); 
+        onHide();
       } catch (err) {
         if (!err.status || err.status === 'FETCH_ERROR') {
           toast.error(t('errors.network')); //ошибка сети(сервер выключен)
@@ -56,12 +56,14 @@ const AddChannelModal = ({ onHide }) => {
               disabled={isLoading}
               autoFocus
             />
-            <Form.Control.Feedback type="invalid">
-              {formik.errors.name}
-            </Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{formik.errors.name}</Form.Control.Feedback>
             <div className="d-flex justify-content-end">
-              <Button variant="secondary" className="me-2" onClick={onHide}>{t('modals.cancel')}</Button>
-              <Button variant="primary" type="submit" disabled={isLoading}>{t('modals.submit')}</Button>
+              <Button variant="secondary" className="me-2" onClick={onHide}>
+                {t('modals.cancel')}
+              </Button>
+              <Button variant="primary" type="submit" disabled={isLoading}>
+                {t('modals.submit')}
+              </Button>
             </div>
           </Form.Group>
         </Form>

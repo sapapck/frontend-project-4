@@ -1,14 +1,14 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { Modal } from 'react-bootstrap';
 import { closeModal } from '../../slices/uiSlice';
-import AddChannelModal from './AddChannelModal'; 
+import AddChannelModal from './AddChannelModal';
 import RemoveChannelModal from './RemoveChannelModal';
 import RenameChannelModal from './RenameChannel';
 
 const modals = {
   adding: AddChannelModal,
   removing: RemoveChannelModal,
-  renaming: RenameChannelModal
+  renaming: RenameChannelModal,
 };
 
 const ModalRoot = () => {

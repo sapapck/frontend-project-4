@@ -1,21 +1,29 @@
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
-import Channels from "./Channels";
-import Messages from "./Messages";
+import Channels from './Channels';
+import Messages from './Messages';
 import { HeaderWithExitButton } from './Head';
-import { useGetChanelsQuery, useGetmessagesQuery } from "../slices/api/chatApi";
-import Spiner from "./Spiner";
+import { useGetChanelsQuery, useGetmessagesQuery } from '../slices/api/chatApi';
+import Spiner from './Spiner';
 const Chat = () => {
-  const {t} =useTranslation()
-  const { isLoading: isChannelsLoading, isError: isChannelsError, error: channelsError } = useGetChanelsQuery();
-  const { isLoading: isMessagesLoading, isError: isMessagesError, error: messagesError } = useGetmessagesQuery();
+  const { t } = useTranslation();
+  const {
+    isLoading: isChannelsLoading,
+    isError: isChannelsError,
+    error: channelsError,
+  } = useGetChanelsQuery();
+  const {
+    isLoading: isMessagesLoading,
+    isError: isMessagesError,
+    error: messagesError,
+  } = useGetmessagesQuery();
 
   const isLoading = isChannelsLoading || isMessagesLoading;
 
   useEffect(() => {
-    const hasNetworkError = 
-      (isChannelsError && channelsError?.status === 'FETCH_ERROR') || 
+    const hasNetworkError =
+      (isChannelsError && channelsError?.status === 'FETCH_ERROR') ||
       (isMessagesError && messagesError?.status === 'FETCH_ERROR');
 
     if (hasNetworkError) {
@@ -25,9 +33,7 @@ const Chat = () => {
 
   const renderContent = () => {
     if (isLoading) {
-      return (
-        <Spiner/>
-      );
+      return <Spiner />;
     }
 
     return (
@@ -42,11 +48,7 @@ const Chat = () => {
     );
   };
 
-  return (
-    <HeaderWithExitButton>
-      {renderContent()}
-    </HeaderWithExitButton>
-  );
+  return <HeaderWithExitButton>{renderContent()}</HeaderWithExitButton>;
 };
 
 export default Chat;

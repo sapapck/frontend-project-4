@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate, Link } from 'react-router-dom'; 
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Button, Form, FloatingLabel } from 'react-bootstrap'; 
+import { Button, Form, FloatingLabel } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { login } from '../slices/authSlice';
@@ -11,21 +11,21 @@ import { useLoginMutation } from '../slices/api/chatApi';
 import { loginSchema } from '../schemas/getValidationSchema';
 
 const LoginForm = () => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const inputRef = useRef();
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [authFailed, setAuthFailed] = useState(false);
   const [loginUser, { isLoading }] = useLoginMutation();
-  
+
   useEffect(() => {
     inputRef.current.focus();
   }, []);
 
   const formik = useFormik({
     initialValues: { username: '', password: '' },
-    
+
     validationSchema: loginSchema,
     onSubmit: async (values) => {
       setAuthFailed(false);
@@ -33,20 +33,20 @@ const LoginForm = () => {
         const userData = await loginUser(values).unwrap();
         localStorage.setItem('userId', JSON.stringify(userData));
         dispatch(login(userData));
-        
+
         const from = location.state?.from?.pathname || '/';
         navigate(from);
       } catch (err) {
         if (err.status === 401) {
           setAuthFailed(true);
-          inputRef.current.select(); 
+          inputRef.current.select();
         } else {
           console.error(t('errors.network'), err);
         }
       }
     },
   });
-    
+
   return (
     <Header>
       <div className="container-fluid h-100">
@@ -55,18 +55,18 @@ const LoginForm = () => {
             <div className="card shadow-sm">
               <div className="card-body row p-5">
                 <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                  <img src={formJpg} className="rounded-circle" alt={t('login.submit')}/>
+                  <img src={formJpg} className="rounded-circle" alt={t('login.submit')} />
                 </div>
                 <Form className="col-12 col-md-6 mt-3 mt-mb-0" onSubmit={formik.handleSubmit}>
                   <h1 className="text-center mb-4">{t('login.submit')}</h1>
-                  
+
                   <FloatingLabel controlId="username" label={t('login.username')} className="mb-3">
                     <Form.Control
                       name="username"
                       autoComplete="username"
                       placeholder={t('login.username')}
                       ref={inputRef}
-                      isInvalid={authFailed} 
+                      isInvalid={authFailed}
                       onChange={formik.handleChange}
                       value={formik.values.username}
                       required
@@ -89,19 +89,19 @@ const LoginForm = () => {
                     </Form.Control.Feedback>
                   </FloatingLabel>
 
-                  <Button 
-                    type="submit" 
-                    disabled={isLoading} 
-                    variant="outline-primary" 
+                  <Button
+                    type="submit"
+                    disabled={isLoading}
+                    variant="outline-primary"
                     className="w-100 mb-3"
                   >
-                   {t('login.submit')}
+                    {t('login.submit')}
                   </Button>
                 </Form>
               </div>
               <div className="card-footer p-4">
                 <div className="text-center">
-                  <span>{t('login.noAccount')} </span> 
+                  <span>{t('login.noAccount')} </span>
                   <Link to="/signup"> {t('login.signup')} </Link>
                 </div>
               </div>
@@ -114,4 +114,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-

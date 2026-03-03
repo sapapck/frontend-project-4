@@ -10,9 +10,8 @@ import signupImg from '../img/signupForm.jpg';
 import { Header } from './Head';
 import { getSignupSchema } from '../schemas/getValidationSchema';
 
-
 const SignupForm = () => {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   const [signup] = useSignupMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,12 +31,12 @@ const SignupForm = () => {
     validationSchema: getSignupSchema(t),
     onSubmit: async (values) => {
       setRegistrationFailed(false);
-      try {  
-        const userData = await signup({ 
-          username: values.username, 
-          password: values.password 
+      try {
+        const userData = await signup({
+          username: values.username,
+          password: values.password,
         }).unwrap();
-        
+
         localStorage.setItem('userId', JSON.stringify(userData));
         dispatch(login(userData));
         navigate('/');
@@ -60,11 +59,11 @@ const SignupForm = () => {
             <div className="card shadow-sm">
               <div className="card-body d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
                 <div>
-                  <img src={signupImg} className="rounded-circle" alt={t('signup.header') } />
+                  <img src={signupImg} className="rounded-circle" alt={t('signup.header')} />
                 </div>
                 <Form onSubmit={formik.handleSubmit} className="w-50">
                   <h1 className="text-center mb-4">{t('signup.header')}</h1>
-                  
+
                   <FloatingLabel controlId="username" label={t('signup.username')} className="mb-3">
                     <Form.Control
                       ref={inputRef}
@@ -74,7 +73,9 @@ const SignupForm = () => {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.username}
-                      isInvalid={(formik.touched.username && !!formik.errors.username) || registrationFailed}
+                      isInvalid={
+                        (formik.touched.username && !!formik.errors.username) || registrationFailed
+                      }
                     />
                     <Form.Control.Feedback type="invalid" tooltip>
                       {registrationFailed ? t('signup.userExists') : formik.errors.username}
@@ -97,7 +98,11 @@ const SignupForm = () => {
                     </Form.Control.Feedback>
                   </FloatingLabel>
 
-                  <FloatingLabel controlId="confirmPassword" label={t('signup.confirm')} className="mb-4">
+                  <FloatingLabel
+                    controlId="confirmPassword"
+                    label={t('signup.confirm')}
+                    className="mb-4"
+                  >
                     <Form.Control
                       name="confirmPassword"
                       type="password"

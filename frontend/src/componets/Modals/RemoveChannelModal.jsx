@@ -7,13 +7,12 @@ import { toast } from 'react-toastify';
 const RemoveChannelModal = ({ onHide }) => {
   const { extraData } = useSelector((state) => state.ui.modal);
   const [removeChannel, { isLoading }] = useRemoveChannelMutation();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const handleRemove = async () => {
-    
     try {
       await removeChannel(extraData.id).unwrap();
       toast.success(t('channels.removed'));
-      onHide(); 
+      onHide();
     } catch (err) {
       if (!err.status || err.status === 'FETCH_ERROR') {
         toast.error(t('errors.network'));
@@ -31,19 +30,10 @@ const RemoveChannelModal = ({ onHide }) => {
       <Modal.Body>
         <p className="lead">{t('modals.confirm')}</p>
         <div className="d-flex justify-content-end">
-          <Button
-            variant="secondary"
-            className="me-2"
-            onClick={onHide}
-            disabled={isLoading}
-          >
+          <Button variant="secondary" className="me-2" onClick={onHide} disabled={isLoading}>
             {t('modals.cancel')}
           </Button>
-          <Button
-            variant="danger"
-            onClick={handleRemove}
-            disabled={isLoading}
-          >
+          <Button variant="danger" onClick={handleRemove} disabled={isLoading}>
             {t('modals.delete')}
           </Button>
         </div>

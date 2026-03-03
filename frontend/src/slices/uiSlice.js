@@ -3,18 +3,18 @@ import { createSlice } from '@reduxjs/toolkit';
 const uiSlice = createSlice({
   name: 'ui',
   initialState: {
-     currentChannelId: '1' ,
+    currentChannelId: '1',
     modal: {
       isOpened: false,
-      type: null, 
-      extraData: null, 
+      type: null,
+      extraData: null,
     },
-    }, 
+  },
   reducers: {
     setCurrentChannelId: (state, { payload }) => {
       state.currentChannelId = payload;
     },
-     openModal: (state, { payload }) => {
+    openModal: (state, { payload }) => {
       const { type, extraData = null } = payload;
       state.modal.isOpened = true;
       state.modal.type = type;
