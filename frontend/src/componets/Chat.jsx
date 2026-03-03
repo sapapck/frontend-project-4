@@ -1,14 +1,28 @@
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 import Channels from "./Channels";
 import Messages from "./Messages";
 import { HeaderWithExitButton } from './Head';
-import { useGetChanelsQuery, useGetmessagesQuery } from "./slices/api/chatApi";
+import { useGetChanelsQuery, useGetmessagesQuery } from "../slices/api/chatApi";
 import Spiner from "./Spiner";
 const Chat = () => {
-  
-  const { isLoading: isChannelsLoading } = useGetChanelsQuery();
-  const { isLoading: isMessagesLoading } = useGetmessagesQuery();
+  const {t} =useTranslation()
+  const { isLoading: isChannelsLoading, isError: isChannelsError, error: channelsError } = useGetChanelsQuery();
+  const { isLoading: isMessagesLoading, isError: isMessagesError, error: messagesError } = useGetmessagesQuery();
 
   const isLoading = isChannelsLoading || isMessagesLoading;
+
+  useEffect(() => {
+    const hasNetworkError = 
+      (isChannelsError && channelsError?.status === 'FETCH_ERROR') || 
+      (isMessagesError && messagesError?.status === 'FETCH_ERROR');
+
+    if (hasNetworkError) {
+      toast.error(t('errors.network'));
+    }
+  }, [isChannelsError, isMessagesError, channelsError, messagesError, t]);
+
   const renderContent = () => {
     if (isLoading) {
       return (

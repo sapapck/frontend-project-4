@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 // Начальное значение
-const userData = JSON.parse(localStorage.getItem('userId')); // Поменяем ключ на более логичный
+const userData = JSON.parse(localStorage.getItem('userId')); 
 
 const initialState = {
   token: userData?.token || null,
