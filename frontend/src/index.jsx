@@ -21,7 +21,6 @@ const rollbarConfig = {
 
 const run = async () => {
   const i18n = await init(); 
-console.log('TOKEN VALUE:', import.meta.env.VITE_ROLLBAR_ACCESS_TOKEN);
 
   const root = createRoot(document.getElementById('root'));
   root.render(
