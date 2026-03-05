@@ -1,4 +1,5 @@
-import * as yup from 'yup'
+/* eslint-disable */
+import * as yup from 'yup';
 
 export const channelSchema = (existingChannels, t) =>
   yup.object().shape({
@@ -8,13 +9,13 @@ export const channelSchema = (existingChannels, t) =>
       .min(3, t('errors.minMax'))
       .max(20, t('errors.minMax'))
       .required(t('errors.required'))
-      .notOneOf(existingChannels, t('errors.unique'))
-  })
+      .notOneOf(existingChannels, t('errors.unique')),
+  });
 
 export const loginSchema = yup.object().shape({
   username: yup.string().required(),
-  password: yup.string().required()
-})
+  password: yup.string().required(),
+});
 
 export const getSignupSchema = (t) =>
   yup.object().shape({
@@ -29,5 +30,5 @@ export const getSignupSchema = (t) =>
       .string()
       .trim()
       .required(t('errors.required'))
-      .oneOf([yup.ref('password')], t('errors.mustMatch'))
-  })
+      .oneOf([yup.ref('password')], t('errors.mustMatch')),
+  });

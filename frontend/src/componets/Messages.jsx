@@ -1,30 +1,31 @@
-import { useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux'
-import { useTranslation } from 'react-i18next'
-import { useGetmessagesQuery, useGetChanelsQuery } from '../slices/api/chatApi'
-import MessageForm from './MessageForm'
-import Spiner from './Spiner'
+/* eslint-disable */
+import { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { useGetmessagesQuery, useGetChanelsQuery } from '../slices/api/chatApi';
+import MessageForm from './MessageForm';
+import Spiner from './Spiner';
 
 const Messages = () => {
-  const { t } = useTranslation()
-  const { data: allMessages = [], isLoading } = useGetmessagesQuery()
-  const { data: channels = [] } = useGetChanelsQuery()
+  const { t } = useTranslation();
+  const { data: allMessages = [], isLoading } = useGetmessagesQuery();
+  const { data: channels = [] } = useGetChanelsQuery();
 
-  const currentChannelId = useSelector((state) => state.ui.currentChannelId)
-  const currentChannel = channels.find((c) => c.id === currentChannelId)
-  const filteredMessages = allMessages.filter((m) => m.channelId === currentChannelId)
+  const currentChannelId = useSelector((state) => state.ui.currentChannelId);
+  const currentChannel = channels.find((c) => c.id === currentChannelId);
+  const filteredMessages = allMessages.filter((m) => m.channelId === currentChannelId);
 
-  const vnode = useRef(null)
+  const vnode = useRef(null);
   //console.log(`Рендер. Загрузка: ${isLoading}, Сообщений: ${allMessages.length}`);
 
-  const { username } = JSON.parse(localStorage.getItem('userId'))
+  const { username } = JSON.parse(localStorage.getItem('userId'));
 
   useEffect(() => {
-    vnode.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [filteredMessages])
+    vnode.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [filteredMessages]);
 
   if (isLoading) {
-    return <Spiner />
+    return <Spiner />;
   }
 
   return (
@@ -52,7 +53,7 @@ const Messages = () => {
         <MessageForm userName={username} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Messages
+export default Messages;

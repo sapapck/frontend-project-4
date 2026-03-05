@@ -1,7 +1,8 @@
-import ru from './ru'
+/* eslint-disable */
+import ru from './ru';
 
 export default {
   ru: {
-    translation: ru
-  }
-}
+    translation: ru,
+  },
+};

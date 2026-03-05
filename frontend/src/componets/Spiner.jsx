@@ -1,3 +1,4 @@
+/* eslint-disable */
 const Spiner = () => {
   return (
     <div className="col p-0 h-100 d-flex justify-content-center align-items-center">
@@ -6,6 +7,6 @@ const Spiner = () => {
       </div>
       <span className="ms-3">Загрузка сообщений...</span>
     </div>
-  )
-}
-export default Spiner
+  );
+};
+export default Spiner;

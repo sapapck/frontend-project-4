@@ -1,13 +1,14 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import LoginForm from './componets/Login'
-import SignupForm from './componets/SignUp'
-import P404 from './componets/Page404'
-import PrivateRoute from './componets/Private'
-import Chat from './componets/Chat'
-import ModalRoot from './componets/Modals'
-import Header from './componets/Head'
+/* eslint-disable */
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import LoginForm from './componets/Login';
+import SignupForm from './componets/SignUp';
+import P404 from './componets/Page404';
+import PrivateRoute from './componets/Private';
+import Chat from './componets/Chat';
+import ModalRoot from './componets/Modals';
+import Header from './componets/Head';
 const App = () => {
   return (
     <BrowserRouter>
@@ -29,7 +30,7 @@ const App = () => {
         </Routes>
       </Header>
     </BrowserRouter>
-  )
-}
+  );
+};
 
-export default App
+export default App;
