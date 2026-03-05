@@ -3,8 +3,10 @@ import { useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import filter from 'leo-profanity';
 import { useAddMessageMutation } from '../slices/api/chatApi';
+import { useTranslation } from 'react-i18next';
 
 const MessageForm = ({ userName }) => {
+  const { t } = useTranslation();
   const [addMessage, { isLoading }] = useAddMessageMutation();
   const inputRef = useRef(null);
 
@@ -27,7 +29,7 @@ const MessageForm = ({ userName }) => {
       formik.resetForm();
       inputRef.current.focus();
     } catch (err) {
-      console.error('Ошибка отправки:', err);
+      console.error(t('errors.notSend'), err);
     }
   };
 
@@ -44,9 +46,10 @@ const MessageForm = ({ userName }) => {
             ref={inputRef}
             name="body"
             id="body"
+            aria-label="Новое сообщение"
             onChange={formik.handleChange}
             value={formik.values.body}
-            placeholder="Введите сообщение..."
+            placeholder={t('chat.placeholder')}
             className="border-0 p-0 ps-2 form-control"
           />
           <button
