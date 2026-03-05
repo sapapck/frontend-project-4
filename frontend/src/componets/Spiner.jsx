@@ -6,6 +6,6 @@ const Spiner = () => {
       </div>
       <span className="ms-3">Загрузка сообщений...</span>
     </div>
-  );
-};
-export default Spiner;
+  )
+}
+export default Spiner

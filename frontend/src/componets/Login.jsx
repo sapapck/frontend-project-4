@@ -1,49 +1,49 @@
-import { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { Button, Form, FloatingLabel } from 'react-bootstrap';
-import { useFormik } from 'formik';
-import { useTranslation } from 'react-i18next';
-import { login } from '../slices/authSlice';
-import formJpg from '../img/form.jpg';
-import { useLoginMutation } from '../slices/api/chatApi';
-import { loginSchema } from '../schemas/getValidationSchema';
+import { useEffect, useRef, useState } from 'react'
+import { useLocation, useNavigate, Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { Button, Form, FloatingLabel } from 'react-bootstrap'
+import { useFormik } from 'formik'
+import { useTranslation } from 'react-i18next'
+import { login } from '../slices/authSlice'
+import formJpg from '../img/form.jpg'
+import { useLoginMutation } from '../slices/api/chatApi'
+import { loginSchema } from '../schemas/getValidationSchema'
 
 const LoginForm = () => {
-  const { t } = useTranslation();
-  const inputRef = useRef();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [authFailed, setAuthFailed] = useState(false);
-  const [loginUser, { isLoading }] = useLoginMutation();
+  const { t } = useTranslation()
+  const inputRef = useRef()
+  const location = useLocation()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [authFailed, setAuthFailed] = useState(false)
+  const [loginUser, { isLoading }] = useLoginMutation()
 
   useEffect(() => {
-    inputRef.current.focus();
-  }, []);
+    inputRef.current.focus()
+  }, [])
 
-  const handleFormSubmit = async values => {
-    setAuthFailed(false);
+  const handleFormSubmit = async (values) => {
+    setAuthFailed(false)
     try {
-      const userData = await loginUser(values).unwrap();
-      dispatch(login(userData));
-      const from = location.state?.from?.pathname || '/';
-      navigate(from);
+      const userData = await loginUser(values).unwrap()
+      dispatch(login(userData))
+      const from = location.state?.from?.pathname || '/'
+      navigate(from)
     } catch (err) {
       if (err.status === 401) {
-        setAuthFailed(true);
-        inputRef.current.select();
+        setAuthFailed(true)
+        inputRef.current.select()
       } else {
-        console.error(t('errors.network'), err);
+        console.error(t('errors.network'), err)
       }
     }
-  };
+  }
 
   const formik = useFormik({
     initialValues: { username: '', password: '' },
     validationSchema: loginSchema,
-    onSubmit: handleFormSubmit,
-  });
+    onSubmit: handleFormSubmit
+  })
 
   return (
     <div className="container-fluid h-100">
@@ -106,7 +106,7 @@ const LoginForm = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LoginForm;
+export default LoginForm

@@ -1,55 +1,55 @@
-import { useFormik } from 'formik';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { useState, useRef, useEffect } from 'react';
-import { Form, Button, FloatingLabel } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
-import { login } from '../slices/authSlice';
-import { useSignupMutation } from '../slices/api/chatApi';
-import signupImg from '../img/signupForm.jpg';
-import { getSignupSchema } from '../schemas/getValidationSchema';
+import { useFormik } from 'formik'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { useState, useRef, useEffect } from 'react'
+import { Form, Button, FloatingLabel } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
+import { login } from '../slices/authSlice'
+import { useSignupMutation } from '../slices/api/chatApi'
+import signupImg from '../img/signupForm.jpg'
+import { getSignupSchema } from '../schemas/getValidationSchema'
 
 const SignupForm = () => {
-  const { t } = useTranslation();
-  const [signup] = useSignupMutation();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [registrationFailed, setRegistrationFailed] = useState(false);
-  const inputRef = useRef(null);
+  const { t } = useTranslation()
+  const [signup] = useSignupMutation()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [registrationFailed, setRegistrationFailed] = useState(false)
+  const inputRef = useRef(null)
 
   useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
+    inputRef.current?.focus()
+  }, [])
 
-  const handleFormSubmit = async values => {
-    setRegistrationFailed(false);
+  const handleFormSubmit = async (values) => {
+    setRegistrationFailed(false)
     try {
       const userData = await signup({
         username: values.username,
-        password: values.password,
-      }).unwrap();
+        password: values.password
+      }).unwrap()
 
-      dispatch(login(userData));
-      navigate('/');
+      dispatch(login(userData))
+      navigate('/')
     } catch (err) {
       if (err.status === 409) {
-        setRegistrationFailed(true);
-        inputRef.current?.select();
+        setRegistrationFailed(true)
+        inputRef.current?.select()
       } else {
-        console.error(t('errors.network'), err);
+        console.error(t('errors.network'), err)
       }
     }
-  };
+  }
 
   const formik = useFormik({
     initialValues: {
       username: '',
       password: '',
-      confirmPassword: '',
+      confirmPassword: ''
     },
     validationSchema: getSignupSchema(t),
-    onSubmit: handleFormSubmit,
-  });
+    onSubmit: handleFormSubmit
+  })
 
   return (
     <div className="container-fluid h-100">
@@ -126,7 +126,7 @@ const SignupForm = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SignupForm;
+export default SignupForm
