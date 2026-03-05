@@ -1,54 +1,23 @@
+root: true
 env:
   browser: true
   es2021: true
-
-extends:
-  - airbnb
-  - plugin:react/recommended
-  - plugin:functional/recommended
-  - plugin:react-hooks/recommended
+  node: true
 
 parserOptions:
-  ecmaFeatures:
-    jsx: true
   ecmaVersion: latest
   sourceType: module
 
-plugins:
-  - react
-  - functional
+extends:
+  - eslint:recommended
 
 rules:
-  import/extensions: 0
-  import/no-unresolved: 0
-  react/prop-types: 0
-  no-console: 0
-  react/react-in-jsx-scope: 0
-  functional/no-conditional-statements: 0
-  functional/no-expression-statements: 0
-  functional/immutable-data: 0
-  functional/functional-parameters: 0
-  functional/no-try-statements: 0
-  functional/no-throw-statements: 0
-  functional/no-return-void: 0
-  no-underscore-dangle: [2, { 'allow': ['__filename', '__dirname'] }]
-  react/function-component-definition: [2, { 'namedComponents': 'arrow-function' }]
-  testing-library/no-debug: 0
-  react/jsx-filename-extension: [1, { 'extensions': ['.js', '.jsx'] }]
-  no-param-reassign: [2, { 'props': false }]
-  import/no-cycle: 0
-  import/no-extraneous-dependencies: 0
-  '@stylistic/semi': 0
-  '@stylistic/comma-dangle': 0
-  '@stylistic/arrow-parens': 0
-  '@stylistic/brace-style': 0
-  '@stylistic/object-curly-newline': 0
-  '@stylistic/operator-linebreak': 0
-  '@stylistic/jsx-one-expression-per-line': 0
-  '@stylistic/multiline-ternary': 0
-  '@stylistic/jsx-wrap-multilines': 0
-  '@stylistic/spaced-comment': 0
   semi: 0
   comma-dangle: 0
   arrow-parens: 0
-  brace-style: 0
+  no-unused-vars: 0
+  no-console: 0
+  import/no-cycle: 0
+  '@stylistic/semi': 0
+  '@stylistic/comma-dangle': 0
+  '@stylistic/arrow-parens': 0
