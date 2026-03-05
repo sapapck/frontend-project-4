@@ -3,16 +3,18 @@ import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import Channels from './Channels';
 import Messages from './Messages';
-import { HeaderWithExitButton } from './Head';
 import { useGetChanelsQuery, useGetmessagesQuery } from '../slices/api/chatApi';
 import Spiner from './Spiner';
+
 const Chat = () => {
   const { t } = useTranslation();
+
   const {
     isLoading: isChannelsLoading,
     isError: isChannelsError,
     error: channelsError,
   } = useGetChanelsQuery();
+
   const {
     isLoading: isMessagesLoading,
     isError: isMessagesError,
@@ -48,7 +50,7 @@ const Chat = () => {
     );
   };
 
-  return <HeaderWithExitButton>{renderContent()}</HeaderWithExitButton>;
+  return renderContent();
 };
 
 export default Chat;

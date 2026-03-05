@@ -14,24 +14,26 @@ const MessageForm = ({ userName }) => {
     inputRef.current.focus();
   }, [currentChannelId]);
 
+  const handleFormSubmit = async (values) => {
+    const trimmedMessage = values.body.trim();
+    if (!trimmedMessage) return;
+    const cleanBody = filter.clean(trimmedMessage);
+    try {
+      await addMessage({
+        body: cleanBody,
+        channelId: currentChannelId,
+        username: userName,
+      }).unwrap();
+      formik.resetForm();
+      inputRef.current.focus();
+    } catch (err) {
+      console.error('Ошибка отправки:', err);
+    }
+  };
+
   const formik = useFormik({
     initialValues: { body: '' },
-    onSubmit: async (values) => {
-      const trimmedMessage = values.body.trim();
-      if (!trimmedMessage) return;
-      const cleanBody = filter.clean(trimmedMessage);
-      try {
-        await addMessage({
-          body: cleanBody,
-          channelId: currentChannelId,
-          username: userName,
-        }).unwrap();
-        formik.resetForm();
-        inputRef.current.focus();
-      } catch (err) {
-        console.error('Ошибка отправки:', err);
-      }
-    },
+    onSubmit: handleFormSubmit,
   });
 
   return (

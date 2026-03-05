@@ -10,7 +10,6 @@ import { channelSchema } from '../../schemas/getValidationSchema';
 const RenameChannelModal = ({ onHide }) => {
   const { t } = useTranslation();
   const inputRef = useRef(null);
-
   const { extraData } = useSelector((state) => state.ui.modal);
   const { data: channels = [] } = useGetChanelsQuery();
   const [renameChannel, { isLoading }] = useRenameChannelMutation();
@@ -21,22 +20,24 @@ const RenameChannelModal = ({ onHide }) => {
     inputRef.current?.select();
   }, []);
 
+  const handleFormSubmit = async ({ name }) => {
+    try {
+      await renameChannel({ id: extraData.id, name }).unwrap();
+      toast.success(t('channels.renamed'));
+      onHide();
+    } catch (err) {
+      if (!err.status || err.status === 'FETCH_ERROR') {
+        toast.error(t('errors.network'));
+      } else {
+        toast.error(t('errors.unknown'));
+      }
+    }
+  };
+
   const formik = useFormik({
     initialValues: { name: extraData.name },
     validationSchema: channelSchema(existingNames, t),
-    onSubmit: async ({ name }) => {
-      try {
-        await renameChannel({ id: extraData.id, name }).unwrap();
-        toast.success(t('channels.renamed'));
-        onHide();
-      } catch (err) {
-        if (!err.status || err.status === 'FETCH_ERROR') {
-          toast.error(t('errors.network'));
-        } else {
-          toast.error(t('errors.unknown'));
-        }
-      }
-    },
+    onSubmit: handleFormSubmit,
   });
 
   return (

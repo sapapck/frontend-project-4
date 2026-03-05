@@ -7,25 +7,27 @@ import P404 from './componets/Page404';
 import PrivateRoute from './componets/Private';
 import Chat from './componets/Chat';
 import ModalRoot from './componets/Modals';
-
+import Header from './componets/Head';
 const App = () => {
   return (
     <BrowserRouter>
-      <ModalRoot />
-      <ToastContainer position="top-right" autoClose={5000} />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <PrivateRoute>
-              <Chat />
-            </PrivateRoute>
-          }
-        />
-        <Route path="login" element={<LoginForm />} />
-        <Route path="signup" element={<SignupForm />} />
-        <Route path="*" element={<P404 />} />
-      </Routes>
+      <Header>
+        <ModalRoot />
+        <ToastContainer position="top-right" autoClose={5000} />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Chat />
+              </PrivateRoute>
+            }
+          />
+          <Route path="login" element={<LoginForm />} />
+          <Route path="signup" element={<SignupForm />} />
+          <Route path="*" element={<P404 />} />
+        </Routes>
+      </Header>
     </BrowserRouter>
   );
 };

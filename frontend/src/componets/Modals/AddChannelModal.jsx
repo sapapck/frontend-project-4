@@ -16,24 +16,26 @@ const AddChannelModal = ({ onHide }) => {
 
   const existingNames = channels.map((c) => c.name);
 
+  const handleFormSubmit = async ({ name }) => {
+    try {
+      const cleanName = filter.clean(name);
+      const response = await addChannel({ name: cleanName }).unwrap();
+      dispatch(setCurrentChannelId(response.id));
+      toast.success(t('channels.created'));
+      onHide();
+    } catch (err) {
+      if (!err.status || err.status === 'FETCH_ERROR') {
+        toast.error(t('errors.network')); //ошибка сети(сервер выключен)
+      } else {
+        toast.error(t('errors.unknown'));
+      }
+    }
+  };
+
   const formik = useFormik({
     initialValues: { name: '' },
     validationSchema: channelSchema(existingNames, t),
-    onSubmit: async ({ name }) => {
-      try {
-        const cleanName = filter.clean(name);
-        const response = await addChannel({ name: cleanName }).unwrap();
-        dispatch(setCurrentChannelId(response.id));
-        toast.success(t('channels.created'));
-        onHide();
-      } catch (err) {
-        if (!err.status || err.status === 'FETCH_ERROR') {
-          toast.error(t('errors.network')); //ошибка сети(сервер выключен)
-        } else {
-          toast.error(t('errors.unknown'));
-        }
-      }
-    },
+    onSubmit: handleFormSubmit,
   });
 
   return (
