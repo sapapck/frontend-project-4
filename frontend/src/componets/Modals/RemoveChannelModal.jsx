@@ -8,6 +8,7 @@ const RemoveChannelModal = ({ onHide }) => {
   const { extraData } = useSelector((state) => state.ui.modal);
   const [removeChannel, { isLoading }] = useRemoveChannelMutation();
   const { t } = useTranslation();
+
   const handleRemove = async () => {
     try {
       await removeChannel(extraData.id).unwrap();
