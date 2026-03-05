@@ -38,3 +38,17 @@ rules:
   no-param-reassign: [2, { 'props': false }]
   import/no-cycle: 0
   import/no-extraneous-dependencies: 0
+  '@stylistic/semi': 0
+  '@stylistic/comma-dangle': 0
+  '@stylistic/arrow-parens': 0
+  '@stylistic/brace-style': 0
+  '@stylistic/object-curly-newline': 0
+  '@stylistic/operator-linebreak': 0
+  '@stylistic/jsx-one-expression-per-line': 0
+  '@stylistic/multiline-ternary': 0
+  '@stylistic/jsx-wrap-multilines': 0
+  '@stylistic/spaced-comment': 0
+  semi: 0
+  comma-dangle: 0
+  arrow-parens: 0
+  brace-style: 0

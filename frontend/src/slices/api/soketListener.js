@@ -25,7 +25,9 @@ export const messagesSocketListener = async (
 
 export const channelsSocketListener = async (
   _,
-  { updateCachedData, cacheDataLoaded, cacheEntryRemoved, getState, dispatch }
+  {
+    updateCachedData, cacheDataLoaded, cacheEntryRemoved, getState, dispatch
+  }
 ) => {
   try {
     await cacheDataLoaded
@@ -44,9 +46,7 @@ export const channelsSocketListener = async (
         dispatch(setCurrentChannelId('1'))
       }
       dispatch(
-        chatApi.util.updateQueryData('getmessages', undefined, (draftMessages) =>
-          draftMessages.filter((m) => m.channelId !== payload.id)
-        )
+        chatApi.util.updateQueryData('getmessages', undefined, (draftMessages) => draftMessages.filter((m) => m.channelId !== payload.id))
       )
     })
 
