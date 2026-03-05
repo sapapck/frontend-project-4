@@ -1,27 +1,27 @@
-import { Modal, Button } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
-import { useRemoveChannelMutation } from '../../slices/api/chatApi'
-import { useTranslation } from 'react-i18next'
-import { toast } from 'react-toastify'
+import { Modal, Button } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { useRemoveChannelMutation } from '../../slices/api/chatApi';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 const RemoveChannelModal = ({ onHide }) => {
-  const { extraData } = useSelector((state) => state.ui.modal)
-  const [removeChannel, { isLoading }] = useRemoveChannelMutation()
-  const { t } = useTranslation()
+  const { extraData } = useSelector(state => state.ui.modal);
+  const [removeChannel, { isLoading }] = useRemoveChannelMutation();
+  const { t } = useTranslation();
 
   const handleRemove = async () => {
     try {
-      await removeChannel(extraData.id).unwrap()
-      toast.success(t('channels.removed'))
-      onHide()
+      await removeChannel(extraData.id).unwrap();
+      toast.success(t('channels.removed'));
+      onHide();
     } catch (err) {
       if (!err.status || err.status === 'FETCH_ERROR') {
-        toast.error(t('errors.network'))
+        toast.error(t('errors.network'));
       } else {
-        toast.error(t('errors.unknown'))
+        toast.error(t('errors.unknown'));
       }
     }
-  }
+  };
 
   return (
     <>
@@ -40,7 +40,7 @@ const RemoveChannelModal = ({ onHide }) => {
         </div>
       </Modal.Body>
     </>
-  )
-}
+  );
+};
 
-export default RemoveChannelModal
+export default RemoveChannelModal;

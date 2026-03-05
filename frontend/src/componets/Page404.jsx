@@ -1,7 +1,7 @@
-import page404 from '../img/page404.jpg'
-import { useTranslation } from 'react-i18next'
+import page404 from '../img/page404.jpg';
+import { useTranslation } from 'react-i18next';
 const P404 = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <div class="text-center">
       <img alt={t('errors.notFound')} src={page404}></img>
@@ -10,6 +10,6 @@ const P404 = () => {
         {t('page404.youCanGo')} <a href="/">{t('page404.home')}</a>
       </p>
     </div>
-  )
-}
-export default P404
+  );
+};
+export default P404;

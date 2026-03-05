@@ -1,42 +1,42 @@
-import { useFormik } from 'formik'
-import { Modal, Form, Button } from 'react-bootstrap'
-import { useDispatch } from 'react-redux'
-import { useTranslation } from 'react-i18next'
-import { toast } from 'react-toastify'
-import filter from 'leo-profanity'
-import { useAddChannelMutation, useGetChanelsQuery } from '../../slices/api/chatApi'
-import { channelSchema } from '../../schemas/getValidationSchema'
-import { setCurrentChannelId } from '../../slices/uiSlice'
+import { useFormik } from 'formik';
+import { Modal, Form, Button } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import filter from 'leo-profanity';
+import { useAddChannelMutation, useGetChanelsQuery } from '../../slices/api/chatApi';
+import { channelSchema } from '../../schemas/getValidationSchema';
+import { setCurrentChannelId } from '../../slices/uiSlice';
 
 const AddChannelModal = ({ onHide }) => {
-  const { t } = useTranslation()
-  const dispatch = useDispatch()
-  const { data: channels = [] } = useGetChanelsQuery()
-  const [addChannel, { isLoading }] = useAddChannelMutation()
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const { data: channels = [] } = useGetChanelsQuery();
+  const [addChannel, { isLoading }] = useAddChannelMutation();
 
-  const existingNames = channels.map((c) => c.name)
+  const existingNames = channels.map(c => c.name);
 
   const handleFormSubmit = async ({ name }) => {
     try {
-      const cleanName = filter.clean(name)
-      const response = await addChannel({ name: cleanName }).unwrap()
-      dispatch(setCurrentChannelId(response.id))
-      toast.success(t('channels.created'))
-      onHide()
+      const cleanName = filter.clean(name);
+      const response = await addChannel({ name: cleanName }).unwrap();
+      dispatch(setCurrentChannelId(response.id));
+      toast.success(t('channels.created'));
+      onHide();
     } catch (err) {
       if (!err.status || err.status === 'FETCH_ERROR') {
-        toast.error(t('errors.network')) //ошибка сети(сервер выключен)
+        toast.error(t('errors.network')); //ошибка сети(сервер выключен)
       } else {
-        toast.error(t('errors.unknown'))
+        toast.error(t('errors.unknown'));
       }
     }
-  }
+  };
 
   const formik = useFormik({
     initialValues: { name: '' },
     validationSchema: channelSchema(existingNames, t),
-    onSubmit: handleFormSubmit
-  })
+    onSubmit: handleFormSubmit,
+  });
 
   return (
     <>
@@ -74,7 +74,7 @@ const AddChannelModal = ({ onHide }) => {
         </Form>
       </Modal.Body>
     </>
-  )
-}
+  );
+};
 
-export default AddChannelModal
+export default AddChannelModal;
