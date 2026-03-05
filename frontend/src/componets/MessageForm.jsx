@@ -1,42 +1,42 @@
-import { useFormik } from 'formik';
-import { useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import filter from 'leo-profanity';
-import { useAddMessageMutation } from '../slices/api/chatApi';
-import { useTranslation } from 'react-i18next';
+import { useFormik } from 'formik'
+import { useRef, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import filter from 'leo-profanity'
+import { useAddMessageMutation } from '../slices/api/chatApi'
+import { useTranslation } from 'react-i18next'
 
 const MessageForm = ({ userName }) => {
-  const { t } = useTranslation();
-  const [addMessage, { isLoading }] = useAddMessageMutation();
-  const inputRef = useRef(null);
+  const { t } = useTranslation()
+  const [addMessage, { isLoading }] = useAddMessageMutation()
+  const inputRef = useRef(null)
 
-  const currentChannelId = useSelector((state) => state.ui.currentChannelId);
+  const currentChannelId = useSelector((state) => state.ui.currentChannelId)
 
   useEffect(() => {
-    inputRef.current.focus();
-  }, [currentChannelId]);
+    inputRef.current.focus()
+  }, [currentChannelId])
 
   const handleFormSubmit = async (values) => {
-    const trimmedMessage = values.body.trim();
-    if (!trimmedMessage) return;
-    const cleanBody = filter.clean(trimmedMessage);
+    const trimmedMessage = values.body.trim()
+    if (!trimmedMessage) return
+    const cleanBody = filter.clean(trimmedMessage)
     try {
       await addMessage({
         body: cleanBody,
         channelId: currentChannelId,
-        username: userName,
-      }).unwrap();
-      formik.resetForm();
-      inputRef.current.focus();
+        username: userName
+      }).unwrap()
+      formik.resetForm()
+      inputRef.current.focus()
     } catch (err) {
-      console.error(t('errors.notSend'), err);
+      console.error(t('errors.notSend'), err)
     }
-  };
+  }
 
   const formik = useFormik({
     initialValues: { body: '' },
-    onSubmit: handleFormSubmit,
-  });
+    onSubmit: handleFormSubmit
+  })
 
   return (
     <div className="mt-auto px-5 py-3">
@@ -73,7 +73,7 @@ const MessageForm = ({ userName }) => {
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default MessageForm;
+export default MessageForm

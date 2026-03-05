@@ -1,14 +1,14 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { Button, Dropdown, ButtonGroup } from 'react-bootstrap';
-import { setCurrentChannelId, openModal } from '../slices/uiSlice';
-import { useGetChanelsQuery } from '../slices/api/chatApi';
-import { useTranslation } from 'react-i18next';
+import { useSelector, useDispatch } from 'react-redux'
+import { Button, Dropdown, ButtonGroup } from 'react-bootstrap'
+import { setCurrentChannelId, openModal } from '../slices/uiSlice'
+import { useGetChanelsQuery } from '../slices/api/chatApi'
+import { useTranslation } from 'react-i18next'
 
 const Channels = () => {
-  const { t } = useTranslation();
-  const { data: channels = [] } = useGetChanelsQuery();
-  const dispatch = useDispatch();
-  const currentChannelId = useSelector((state) => state.ui.currentChannelId);
+  const { t } = useTranslation()
+  const { data: channels = [] } = useGetChanelsQuery()
+  const dispatch = useDispatch()
+  const currentChannelId = useSelector((state) => state.ui.currentChannelId)
 
   return (
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
@@ -39,7 +39,7 @@ const Channels = () => {
         className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block"
       >
         {channels.map((channel) => {
-          const variant = channel.id === currentChannelId ? 'secondary' : 'light';
+          const variant = channel.id === currentChannelId ? 'secondary' : 'light'
 
           return (
             <li key={channel.id} className="nav-item w-100">
@@ -80,11 +80,11 @@ const Channels = () => {
                 </Button>
               )}
             </li>
-          );
+          )
         })}
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default Channels;
+export default Channels

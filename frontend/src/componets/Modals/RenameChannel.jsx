@@ -1,44 +1,44 @@
-import { useEffect, useRef } from 'react';
-import { useFormik } from 'formik';
-import { Modal, Form, Button } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
-import { useRenameChannelMutation, useGetChanelsQuery } from '../../slices/api/chatApi';
-import { channelSchema } from '../../schemas/getValidationSchema';
+import { useEffect, useRef } from 'react'
+import { useFormik } from 'formik'
+import { Modal, Form, Button } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next'
+import { useRenameChannelMutation, useGetChanelsQuery } from '../../slices/api/chatApi'
+import { channelSchema } from '../../schemas/getValidationSchema'
 
 const RenameChannelModal = ({ onHide }) => {
-  const { t } = useTranslation();
-  const inputRef = useRef(null);
-  const { extraData } = useSelector((state) => state.ui.modal);
-  const { data: channels = [] } = useGetChanelsQuery();
-  const [renameChannel, { isLoading }] = useRenameChannelMutation();
+  const { t } = useTranslation()
+  const inputRef = useRef(null)
+  const { extraData } = useSelector((state) => state.ui.modal)
+  const { data: channels = [] } = useGetChanelsQuery()
+  const [renameChannel, { isLoading }] = useRenameChannelMutation()
 
-  const existingNames = channels.map((c) => c.name);
+  const existingNames = channels.map((c) => c.name)
 
   useEffect(() => {
-    inputRef.current?.select();
-  }, []);
+    inputRef.current?.select()
+  }, [])
 
   const handleFormSubmit = async ({ name }) => {
     try {
-      await renameChannel({ id: extraData.id, name }).unwrap();
-      toast.success(t('channels.renamed'));
-      onHide();
+      await renameChannel({ id: extraData.id, name }).unwrap()
+      toast.success(t('channels.renamed'))
+      onHide()
     } catch (err) {
       if (!err.status || err.status === 'FETCH_ERROR') {
-        toast.error(t('errors.network'));
+        toast.error(t('errors.network'))
       } else {
-        toast.error(t('errors.unknown'));
+        toast.error(t('errors.unknown'))
       }
     }
-  };
+  }
 
   const formik = useFormik({
     initialValues: { name: extraData.name },
     validationSchema: channelSchema(existingNames, t),
-    onSubmit: handleFormSubmit,
-  });
+    onSubmit: handleFormSubmit
+  })
 
   return (
     <>
@@ -74,7 +74,7 @@ const RenameChannelModal = ({ onHide }) => {
         </Form>
       </Modal.Body>
     </>
-  );
-};
+  )
+}
 
-export default RenameChannelModal;
+export default RenameChannelModal
