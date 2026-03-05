@@ -16,7 +16,7 @@ const Channels = () => {
         <b>{t('chat.channels')}</b>
         <Button
           variant="flush"
-          className="p-0 text-primary"
+          className="p-0 text-primary btn btn-group-vertical"
           onClick={() => dispatch(openModal({ type: 'adding' }))}
         >
           <svg

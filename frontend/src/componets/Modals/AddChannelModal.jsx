@@ -46,6 +46,9 @@ const AddChannelModal = ({ onHide }) => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
+            <Form.Label htmlFor="name" className="visually-hidden">
+              {t('modals.name')}
+            </Form.Label>
             <Form.Control
               name="name"
               id="name"

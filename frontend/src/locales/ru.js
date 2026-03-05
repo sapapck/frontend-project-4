@@ -39,6 +39,7 @@ export default {
     add: 'Добавить канал',
     remove: 'Удалить канал',
     renameChannel: 'Переименовать канал',
+    name: 'Имя канала',
     rename: 'Переименовать',
     confirm: 'Уверены?',
     cancel: 'Отменить',
