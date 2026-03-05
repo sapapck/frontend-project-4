@@ -1,6 +1,7 @@
+/* eslint-disable */
 export default {
   languages: {
-    ru: 'Русский'
+    ru: 'Русский',
   },
   login: {
     hexletChat: 'Hexlet Chat',
@@ -10,7 +11,7 @@ export default {
     password: 'Пароль',
     noAccount: 'Нет аккаунта?',
     signup: 'Регистрация',
-    authFailed: 'Неверные имя пользователя или пароль'
+    authFailed: 'Неверные имя пользователя или пароль',
   },
   signup: {
     header: 'Регистрация',
@@ -18,7 +19,7 @@ export default {
     password: 'Пароль',
     confirm: 'Подтвердите пароль',
     submit: 'Зарегистрироваться',
-    userExists: 'Такой пользователь уже существует'
+    userExists: 'Такой пользователь уже существует',
   },
   chat: {
     channels: 'Каналы',
@@ -28,12 +29,12 @@ export default {
     counter_many: '{{count}} сообщений',
     channelManagement: 'Управление каналом',
     send: 'Отправить',
-    placeholder: 'Введите сообщение...'
+    placeholder: 'Введите сообщение...',
   },
   channels: {
     created: 'Канал создан',
     removed: 'Канал удалён',
-    renamed: 'Канал переименован'
+    renamed: 'Канал переименован',
   },
   modals: {
     add: 'Добавить канал',
@@ -46,7 +47,7 @@ export default {
     submit: 'Отправить',
     delete: 'Удалить',
     whileRemoving: 'Ошибка при удалении:',
-    whileRenaming: 'Ошибка переименования:'
+    whileRenaming: 'Ошибка переименования:',
   },
   errors: {
     required: 'Обязательное поле',
@@ -57,10 +58,10 @@ export default {
     network: 'Ошибка соединения',
     unknown: 'Неизвестная ошибка',
     notSend: 'Ошибка отправки:',
-    notFound: 'Страница не найдена'
+    notFound: 'Страница не найдена',
   },
   page404: {
     youCanGo: 'Но вы можете перейти',
-    home: 'на главную страницу'
-  }
-}
+    home: 'на главную страницу',
+  },
+};
